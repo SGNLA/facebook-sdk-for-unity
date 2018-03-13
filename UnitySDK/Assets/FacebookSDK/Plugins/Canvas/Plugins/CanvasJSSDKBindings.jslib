@@ -59,11 +59,18 @@ var FBUnityImpl = {
             FB.Canvas.setDoneLoading(
               function (result) {
                 // send implicitly event to log the time from the canvas pages load to facebook init being called.
-                FBUnity.logAppEvent('fb_canvas_time_till_init_complete', result.time_delta_ms / 1000, null);
+                FBUnity.logEvent('fb_canvas_time_till_init_complete', result.time_delta_ms / 1000, null);
               }
             );
         },
 
+        logEvent: function(eventName, valueToSum, parameters) {
+            FB.AppEvents.logEvent(
+                eventName,
+                valueToSum,
+                JSON.parse(parameters)
+            );
+        },
 
         onAuthResponseChange: function(response) {
             FBUnity.sendMessage('OnFacebookAuthResponseChange', response ? JSON.stringify(response) : '');
@@ -182,7 +189,7 @@ var FBUnityImpl = {
             }
         }  
     },
-    
+
     login: function(scope, callback_id) {
         scope = Pointer_stringify(scope);
         scope = scope.split(',');
@@ -201,11 +208,7 @@ var FBUnityImpl = {
     logAppEvent: function(eventName, valueToSum, parameters) {
         eventName = Pointer_stringify(eventName);
         parameters = Pointer_stringify(parameters);
-        FB.AppEvents.logEvent(
-            eventName,
-            valueToSum,
-            JSON.parse(parameters)
-        );
+        FBUnity.logEvent(eventName, valueToSum, parameters);
     },
 
     logPurchase: function(purchaseAmount, currency, parameters) {
