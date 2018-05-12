@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 40dad390f7a4849a0abfdcee508c7ca9
-timeCreated: 1514425512
-licenseType: Pro
+guid: d6be3b3b3c98b4772914371e7d93a03c
+timeCreated: 1526085268
+licenseType: Free
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -10,6 +10,11 @@ PluginImporter:
   isPreloaded: 0
   isOverridable: 0
   platformData:
+  - first:
+      Android: Android
+    second:
+      enabled: 1
+      settings: {}
   - first:
       Any: 
     second:
@@ -21,16 +26,6 @@ PluginImporter:
       enabled: 0
       settings:
         DefaultValueInitialized: true
-  - first:
-      Facebook: WebGL
-    second:
-      enabled: 1
-      settings: {}
-  - first:
-      WebGL: WebGL
-    second:
-      enabled: 1
-      settings: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

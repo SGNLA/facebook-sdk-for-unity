@@ -32,6 +32,8 @@ We are able to accept contributions to the Facebook SDK for Unity. To contribute
 
 BUILDING THE SDK
 -------------
+Open the UnitySDK project in your version of Unity - this should upgrade the project and set the Extension paths for building for test. This includes opening the C# project.
+
 1. Setup the plugin binaries.
 ```
 ./scripts/setup.sh
@@ -42,8 +44,8 @@ BUILDING THE SDK
 ```
 
 NOTE: if you have installed Unity at a non-standard path run the following:
-export UNITY_PATH="/Applications/<ex. Unity2017.2.1p2>/Unity.app/Contents/MacOS/Unity"
-export UNITY_DLL_PATH="\Applications\<ex. Unity2017.2.1p2>\Unity.app\Contents\Managed"
+export UNITY_PATH="/Applications/<ex. Unity2017.4.2p2>/Unity.app/Contents/MacOS/Unity"
+export UNITY_DLL_PATH="\Applications\<ex. Unity2017.4.2p2>\Unity.app\Contents\Managed"
 
 LICENSE
 -------
