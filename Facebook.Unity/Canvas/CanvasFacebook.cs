@@ -152,7 +152,7 @@ namespace Facebook.Unity.Canvas
             FacebookDelegate<ILoginResult> callback)
         {
             this.canvasJSWrapper.DisableFullScreen();
-            this.canvasJSWrapper.Login(permissions, CallbackManager.AddFacebookDelegate(callback));
+            this.canvasJSWrapper.Login(permissions.ToCommaSeparateList(), CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void LogInWithReadPermissions(
@@ -160,7 +160,7 @@ namespace Facebook.Unity.Canvas
             FacebookDelegate<ILoginResult> callback)
         {
             this.canvasJSWrapper.DisableFullScreen();
-            this.canvasJSWrapper.Login(permissions, CallbackManager.AddFacebookDelegate(callback));
+            this.canvasJSWrapper.Login(permissions.ToCommaSeparateList(), CallbackManager.AddFacebookDelegate(callback));
         }
 
         public override void LogOut()

@@ -20,28 +20,7 @@
 
 namespace Facebook.Unity.Canvas
 {
-    using System.Collections.Generic;
-
-    internal interface ICanvasJSWrapper
+    public class CanvasWrapper
     {
-        string GetSDKVersion();
-
-        void DisableFullScreen();
-
-        void Init(string connectFacebookUrl, string locale, int debug, string initParams, int status);
-
-        void Login(string scopes, string callback_id);
-
-        void Logout();
-
-        void ActivateApp();
-
-        void LogAppEvent(string eventName, float? valueToSum, string parameters);
-
-        void LogPurchase(float purchaseAmount, string currency, string parameters);
-
-        void Ui(string x, string uid, string callbackMethodName);
-
-        void InitScreenPosition();
     }
 }

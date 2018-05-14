@@ -44,9 +44,9 @@ namespace Facebook.Unity.Canvas
             init(connectFacebookUrl, locale, debug, initParams, status);
         }
 
-        public void Login(IEnumerable<string> scope, string callback_id)
+        public void Login(string scopes, string callback_id)
         {
-            login(scope, callback_id);
+            login(scopes, callback_id);
         }
 
         public void Logout() {
@@ -77,7 +77,7 @@ namespace Facebook.Unity.Canvas
         private static extern void init(string connectFacebookUrl, string locale, int debug, string initParams, int status);
 
         [DllImport("__Internal")]
-        private static extern void login(IEnumerable<string> scope, string callback_id);
+        private static extern void login(string scopes, string callback_id);
 
         [DllImport("__Internal")]
         private static extern void logout();
