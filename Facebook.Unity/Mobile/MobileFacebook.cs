@@ -66,6 +66,12 @@ namespace Facebook.Unity.Mobile
 
         public abstract bool IsImplicitPurchaseLoggingEnabled();
 
+        public abstract void SetAutoLogAppEventsEnabled (bool autoLogAppEventsEnabled);
+
+        public abstract void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled);
+
+        public abstract void SetPushNotificationsDeviceTokenString(string token);
+
         public override void OnLoginComplete(ResultContainer resultContainer)
         {
             var result = new LoginResult(resultContainer);

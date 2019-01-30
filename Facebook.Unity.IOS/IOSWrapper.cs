@@ -61,6 +61,11 @@ namespace Facebook.Unity.IOS
             IOSWrapper.IOSFBLogOut();
         }
 
+        public void SetPushNotificationsDeviceTokenString(string token)
+        {
+            IOSWrapper.IOSFBSetPushNotificationsDeviceTokenString(token);
+        }
+
         public void SetShareDialogMode(int mode)
         {
             IOSWrapper.IOSFBSetShareDialogMode(mode);
@@ -184,6 +189,16 @@ namespace Facebook.Unity.IOS
             IOSWrapper.IOSFBAppEventsSetLimitEventUsage(limitEventUsage);
         }
 
+        public void FBAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
+        {
+           IOSWrapper.IOSFBAutoLogAppEventsEnabled(autoLogAppEventsEnabled);
+        }
+
+        public void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
+        {
+            IOSWrapper.IOSFBAdvertiserIDCollectionEnabled(advertiserIDCollectionEnabled);
+        }
+
         public void GetAppLink(int requestId)
         {
             IOSWrapper.IOSFBGetAppLink(requestId);
@@ -223,6 +238,9 @@ namespace Facebook.Unity.IOS
 
         [DllImport("__Internal")]
         private static extern void IOSFBLogOut();
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBSetPushNotificationsDeviceTokenString(string token);
 
         [DllImport("__Internal")]
         private static extern void IOSFBSetShareDialogMode(int mode);
@@ -289,6 +307,12 @@ namespace Facebook.Unity.IOS
 
         [DllImport("__Internal")]
         private static extern void IOSFBAppEventsSetLimitEventUsage(bool limitEventUsage);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled);
+
+        [DllImport("__Internal")]
+        private static extern void IOSFBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabledID);
 
         [DllImport("__Internal")]
         private static extern void IOSFBGetAppLink(int requestID);
