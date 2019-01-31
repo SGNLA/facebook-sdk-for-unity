@@ -28,9 +28,9 @@ if [ -z ${UNITY_PATH+x} ];
   then UNITY_PATH="/Applications/Unity/Unity.app/Contents/MacOS/Unity";
 fi
 if [  -z ${UNITY_DLL_PATH+x} ];
-  then UNITY_DLL_PATH="/Applications/Unity/Unity.app/Contents/Managed";
+  then UNITY_DLL_PATH="/Applications/Unity/Unity.app/Contents";
 fi
-UNITYDLLPATH=$UNITY_DLL_PATH
+UnityDllPath=$UNITY_DLL_PATH
 UNITY_PACKAGE_ROOT=$PROJECT_ROOT/UnitySDK
 UNITY_PACKAGE_PLUGIN=$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/
 UNITY_ANDROID_PLUGIN=$UNITY_PACKAGE_PLUGIN/Android/
@@ -136,6 +136,8 @@ function downloadUnityJarResolverFromGithub() {
   UNITY_JAR_RESOLVER_PACKAGE="$UNITY_JAR_RESOLVER_PACKAGE_NAME.unitypackage"
 
   pushd $PROJECT_ROOT > /dev/null
+  info "Moving out Facebook Examples"
+  mv $PROJECT_ROOT/UnitySDK/Assets/FacebookSDK/Examples $PROJECT_ROOT/Examples
   info "Downloading unity-jar-resolver..."
   curl -L "$UNITY_JAR_RESOLVER_ZIP_URL" > $UNITY_JAR_RESOLVER_NAME.zip || die "Failed to download $UNITY_JAR_RESOLVER_URL"
   unzip -o -j -q $UNITY_JAR_RESOLVER_NAME.zip -d $UNITY_JAR_RESOLVER_NAME
@@ -145,12 +147,11 @@ function downloadUnityJarResolverFromGithub() {
 
   UNITY_PACKAGE_PATH="$PROJECT_ROOT/$UNITY_JAR_RESOLVER_PACKAGE"
 
-echo "emmet: $UNITY_PACKAGE_PATH"
-
   $UNITY_PATH -quit -batchmode -logFile -projectPath="$PROJECT_ROOT/UnitySDK" \
    -importPackage "$UNITY_PACKAGE_PATH" || die "Failed to import $UNITY_PACKAGE_PATH"
   info "Cleaning up..."
   rm $UNITY_PACKAGE_PATH
+  mv $PROJECT_ROOT/Examples $PROJECT_ROOT/UnitySDK/Assets/FacebookSDK/Examples
   popd > /dev/null
 }
 
