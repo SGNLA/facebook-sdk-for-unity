@@ -28,9 +28,9 @@ if [ -z ${UNITY_PATH+x} ];
   then UNITY_PATH="/Applications/Unity/Unity.app/Contents/MacOS/Unity";
 fi
 if [  -z ${UNITY_DLL_PATH+x} ];
-  then UNITY_DLL_PATH="/Applications/Unity/Unity.app/Contents/Managed";
+  then UNITY_DLL_PATH="/Applications/Unity/Unity.app/Contents";
 fi
-UNITYDLLPATH=$UNITY_DLL_PATH
+UnityDllPath=$UNITY_DLL_PATH
 UNITY_PACKAGE_ROOT=$PROJECT_ROOT/UnitySDK
 UNITY_PACKAGE_PLUGIN=$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/
 UNITY_ANDROID_PLUGIN=$UNITY_PACKAGE_PLUGIN/Android/
@@ -62,9 +62,9 @@ MAVEN_BASE_URL='http://repository.sonatype.org/service/local/artifact/maven/redi
 FACEBOOK_BASE_URL='https://origincache.facebook.com/developers/resources/?id=%s-%s.zip'
 UNITY_JAR_RESOLVER_NAME='unity-jar-resolver'
 UNITY_JAR_RESOLVER_PACKAGE_NAME='play-services-resolver'
-UNITY_JAR_RESOLVER_BASE_URL="https://github.com/googlesamples/$UNITY_JAR_RESOLVER_NAME/raw/master/"
-UNITY_JAR_RESOLVER_VERSION='1.2.72.0'
-UNITY_JAR_RESOLVER_URL="$UNITY_JAR_RESOLVER_BASE_URL$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_VERSION.unitypackage"
+UNITY_JAR_RESOLVER_BASE_URL="https://github.com/googlesamples/$UNITY_JAR_RESOLVER_NAME/archive/v"
+UNITY_JAR_RESOLVER_VERSION='1.2.95'
+UNITY_JAR_RESOLVER_ZIP_URL="$UNITY_JAR_RESOLVER_BASE_URL$UNITY_JAR_RESOLVER_VERSION.zip"
 
 FB_SDK_MODULES=(
   'facebook-applinks'
@@ -74,6 +74,7 @@ FB_SDK_MODULES=(
   'facebook-messenger'
   'facebook-places'
   'facebook-share'
+  'facebook-marketing'
 )
 
 function die() {
@@ -131,21 +132,25 @@ function downloadFromFacebook() {
 }
 
 function downloadUnityJarResolverFromGithub() {
-  UNITY_JAR_RESOLVER_PACKAGE="$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_VERSION.unitypackage"
+  UNITY_JAR_RESOLVER_PACKAGE="$UNITY_JAR_RESOLVER_PACKAGE_NAME.unitypackage"
 
   pushd $PROJECT_ROOT > /dev/null
+  info "Moving out Facebook Examples"
+  mv $PROJECT_ROOT/UnitySDK/Assets/FacebookSDK/Examples $PROJECT_ROOT/Examples
   info "Downloading unity-jar-resolver..."
-  curl -L "$UNITY_JAR_RESOLVER_URL" > $UNITY_JAR_RESOLVER_PACKAGE || die "Failed to download $UNITY_JAR_RESOLVER_URL"
+  curl -L "$UNITY_JAR_RESOLVER_ZIP_URL" > $UNITY_JAR_RESOLVER_NAME.zip || die "Failed to download $UNITY_JAR_RESOLVER_URL"
+  unzip -o -j -q $UNITY_JAR_RESOLVER_NAME.zip -d $UNITY_JAR_RESOLVER_NAME
+  mv $UNITY_JAR_RESOLVER_NAME/$UNITY_JAR_RESOLVER_PACKAGE_NAME-$UNITY_JAR_RESOLVER_VERSION.0.unitypackage $PROJECT_ROOT/$UNITY_JAR_RESOLVER_PACKAGE
+  rm -rf $UNITY_JAR_RESOLVER_NAME.zip $UNITY_JAR_RESOLVER_NAME
   info "Importing unity-jar-resolver to UnitySDK project..."
 
   UNITY_PACKAGE_PATH="$PROJECT_ROOT/$UNITY_JAR_RESOLVER_PACKAGE"
-
-echo "emmet: $UNITY_PACKAGE_PATH"
 
   $UNITY_PATH -quit -batchmode -logFile -projectPath="$PROJECT_ROOT/UnitySDK" \
    -importPackage "$UNITY_PACKAGE_PATH" || die "Failed to import $UNITY_PACKAGE_PATH"
   info "Cleaning up..."
   rm $UNITY_PACKAGE_PATH
+  mv $PROJECT_ROOT/Examples $PROJECT_ROOT/UnitySDK/Assets/FacebookSDK/Examples
   popd > /dev/null
 }
 

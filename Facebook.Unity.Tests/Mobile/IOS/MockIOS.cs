@@ -75,6 +75,11 @@ namespace Facebook.Unity.Tests.Mobile.IOS
             this.LogMethodCall();
         }
 
+        public void SetPushNotificationsDeviceTokenString(string token)
+        {
+            this.LogMethodCall();
+        }
+
         public void SetShareDialogMode(int mode)
         {
             this.LogMethodCall();
@@ -163,6 +168,16 @@ namespace Facebook.Unity.Tests.Mobile.IOS
         }
 
         public void FBAppEventsSetLimitEventUsage(bool limitEventUsage)
+        {
+            this.LogMethodCall();
+        }
+
+        public void FBAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
+        {
+            this.LogMethodCall();
+        }
+
+        public void FBAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
         {
             this.LogMethodCall();
         }

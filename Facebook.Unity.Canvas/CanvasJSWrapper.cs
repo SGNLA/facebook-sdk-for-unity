@@ -58,7 +58,7 @@ namespace Facebook.Unity.Canvas
         }
 
         public void LogAppEvent(string eventName, float? valueToSum, string parameters) {
-            logAppEvent(eventName, valueToSum, parameters);
+            logAppEvent(eventName, valueToSum.GetValueOrDefault(), parameters);
         }
 
         public void LogPurchase(float purchaseAmount, string currency, string parameters) {
@@ -86,7 +86,7 @@ namespace Facebook.Unity.Canvas
         private static extern void activateApp();
 
         [DllImport("__Internal")]
-        private static extern void logAppEvent(string eventName, float? valueToSum, string parameters);
+        private static extern void logAppEvent(string eventName, float valueToSum, string parameters);
 
         [DllImport("__Internal")]
         private static extern void logPurchase(float purchaseAmount, string currency, string parameters);

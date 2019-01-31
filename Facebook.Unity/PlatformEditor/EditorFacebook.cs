@@ -180,6 +180,21 @@ namespace Facebook.Unity.Editor
             return true;
         }
 
+        public void SetAutoLogAppEventsEnabled(bool autoLogAppEventsEnabled)
+        {
+            return;
+        }
+
+        public void SetAdvertiserIDCollectionEnabled(bool advertiserIDCollectionEnabled)
+        {
+            return;
+        }
+
+        public void SetPushNotificationsDeviceTokenString(string token)
+        {
+            return;
+        }
+
         public void AppInvite(
             Uri appLinkUrl,
             Uri previewImageUrl,

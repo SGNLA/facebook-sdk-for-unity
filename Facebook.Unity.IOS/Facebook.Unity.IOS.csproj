@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <noWarn>0618</noWarn>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E9D1DFF6-9C2E-4954-95FD-A6F22B4D0121}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Facebook.Unity.IOS</RootNamespace>
     <AssemblyName>Facebook.Unity.IOS</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <ReleaseVersion>
     </ReleaseVersion>
   </PropertyGroup>

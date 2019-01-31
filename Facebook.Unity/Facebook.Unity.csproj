@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <UnityDllPath Condition=" '$(UnityDllPath)' == '' ">\Applications\Unity\Unity.app\Contents\Managed</UnityDllPath> 
+    <noWarn>0618</noWarn>
+    <UnityDllPath Condition=" '$(UnityDllPath)' == '' ">\Applications\Unity\Unity.app\Contents</UnityDllPath> 
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3DFF6C0C-BB04-405D-A23F-95999630E7F8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Facebook.Unity</RootNamespace>
     <AssemblyName>Facebook.Unity</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <ReleaseVersion>
     </ReleaseVersion>
     <ProductVersion>8.0.30703</ProductVersion>
@@ -37,9 +38,15 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
-      <HintPath>"${UnityDllPath}\UnityEngine.dll"</HintPath>
+      <HintPath>$(UnityDllPath)\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>$(UnityDllPath)\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>$(UnityDllPath)\Managed\UnityEditor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessToken.cs" />
@@ -157,7 +164,7 @@
     <MonoDevelop>
       <Properties>
         <Policies>
-          <TextStylePolicy FileWidth="120" inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/plain" />
+          <TextStylePolicy FileWidth="120" TabWidth="4" IndentWidth="4" RemoveTrailingWhitespace="True" NoTabsAfterNonTabs="False" EolMarker="Native" TabsToSpaces="True" scope="text/plain" />
         </Policies>
       </Properties>
     </MonoDevelop>

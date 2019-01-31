@@ -22,6 +22,7 @@ namespace Facebook.Unity.Example
 {
     using System.Collections;
     using UnityEngine;
+    using UnityEngine.Networking;
 
     internal class GraphRequest : MenuBase
     {

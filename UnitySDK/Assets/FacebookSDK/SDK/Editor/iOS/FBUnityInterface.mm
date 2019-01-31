@@ -76,20 +76,18 @@ static FBUnityInterface *_instance = [FBUnityInterface sharedInstance];
 
 - (void)didBecomeActive:(NSNotification *)notification
 {
-  [FBSDKAppEvents activateApp];
+  if ([[FBSDKSettings autoLogAppEventsEnabled] boolValue]) {
+    [FBSDKAppEvents activateApp];
+  }
 }
 
 - (void)onOpenURL:(NSNotification *)notification
 {
   NSURL *url = notification.userInfo[@"url"];
-  BOOL isHandledByFBSDK = false;
-  if ([url.absoluteString hasPrefix:@"fb"])
-  {
-    isHandledByFBSDK = [[FBSDKApplicationDelegate sharedInstance] application:[UIApplication sharedApplication]
-                                                                          openURL:url
-                                                                sourceApplication:notification.userInfo[@"sourceApplication"]
-                                                                       annotation:notification.userInfo[@"annotation"]];
-  }
+  BOOL isHandledByFBSDK = [[FBSDKApplicationDelegate sharedInstance] application:[UIApplication sharedApplication]
+                                                                         openURL:url
+                                                               sourceApplication:notification.userInfo[@"sourceApplication"]
+                                                                      annotation:notification.userInfo[@"annotation"]];
   if (!isHandledByFBSDK) {
     [FBUnityInterface sharedInstance].openURLString = [url absoluteString];
   }
@@ -384,6 +382,11 @@ extern "C" {
     [[FBUnityInterface sharedInstance] logOut];
   }
 
+  void IOSFBSetPushNotificationsDeviceTokenString(const char *token)
+  {
+    [FBSDKAppEvents setPushNotificationsDeviceTokenString:[FBUnityUtility stringFromCString:token]];
+  }
+
   void IOSFBSetShareDialogMode(int mode)
   {
     [FBUnityInterface sharedInstance].shareDialogMode = static_cast<ShareDialogMode>(mode);
@@ -493,6 +496,16 @@ extern "C" {
   {
     [FBSDKSettings setLimitEventAndDataUsage:limitEventUsage];
   }
+
+  void IOSFBAutoLogAppEventsEnabled(BOOL autoLogAppEventsEnabledID)
+  {
+    [FBSDKSettings setAutoLogAppEventsEnabled:[NSNumber numberWithBool:autoLogAppEventsEnabledID]];
+  }
+
+  void IOSFBAdvertiserIDCollectionEnabled(BOOL advertiserIDCollectionEnabledID)
+  {
+    [FBSDKSettings setAdvertiserIDCollectionEnabled:[NSNumber numberWithBool:advertiserIDCollectionEnabledID]];
+  } 
 
   char* IOSFBSdkVersion()
   {

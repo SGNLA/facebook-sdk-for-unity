@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+    <noWarn>0618</noWarn>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F0ED0CDD-F963-4266-8C08-670C05BA611E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Facebook.Unity.Canvas</RootNamespace>
     <AssemblyName>Facebook.Unity.Canvas</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <ReleaseVersion>
     </ReleaseVersion>
   </PropertyGroup>
@@ -32,7 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
-      <HintPath>${UnityDllPath}\UnityEngine.dll</HintPath>
+      <HintPath>$(UnityDllPath)\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -49,4 +50,11 @@
   <ItemGroup>
     <Folder Include="Plugins\" />
   </ItemGroup>
+  <ItemGroup>
+    <ContentWithTargetPath Include="Plugins\CanvasJSSDKBindings.jslib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>CanvasJSSDKBindings.jslib</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
+
 </Project>

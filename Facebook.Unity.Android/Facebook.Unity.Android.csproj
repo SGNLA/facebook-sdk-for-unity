@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <UnityDllPath Condition=" '$(UnityDllPath)' == '' ">\Applications\Unity\Unity.app\Contents\Managed</UnityDllPath> 
+    <noWarn>0618</noWarn>
+    <UnityDllPath Condition=" '$(UnityDllPath)' == '' ">\Applications\Unity\Unity.app\Contents</UnityDllPath> 
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D3DF5151-7271-4CBA-8F91-85B7845E2FBD}</ProjectGuid>
@@ -10,7 +11,7 @@
     <AssemblyName>Facebook.Unity.Android</AssemblyName>
     <ReleaseVersion>
     </ReleaseVersion>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,7 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="UnityEngine">
-      <HintPath>${UnityDllPath}\UnityEngine.dll</HintPath>
+      <HintPath>$(UnityDllPath)\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -56,6 +56,7 @@ TestResult.xml
 
 # Ignore Plugin Folders which are build by build
 /UnitySDK/Assets/Plugins/
+UnitySDK/Assets/FacebookSDK/Plugins/Canvas/CanvasJSSDKBindings.jslib
 
 # Ignore Unity Jar Resolver which is pulled in by build script
 /UnitySDK/Assets/PlayServicesResolver.meta
@@ -94,6 +95,9 @@ ads/Assets/AudienceNetwork/Editor/iOS.meta
 ads/Assets/AudienceNetwork/Plugins/Android/libs/ads-release.aar.meta
 ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/*.h.meta
 ads/Assets/AudienceNetwork/Plugins/iOS/libs/FBAudienceNetwork.framework/Headers/*.h.meta
+
+# Visual Studio
+ads/.vs/
 
 # Buck
 /buck-out

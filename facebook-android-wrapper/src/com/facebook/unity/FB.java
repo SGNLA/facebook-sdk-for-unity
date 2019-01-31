@@ -96,7 +96,9 @@ public class FB {
                     unityMessage.put("key_hash", FB.getKeyHash());
                 }
 
-                FB.ActivateApp(appID);
+                if (FacebookSdk.getAutoLogAppEventsEnabled()) {
+                    FB.ActivateApp(appID);
+                }
 
                 unityMessage.send();
             }
@@ -263,6 +265,20 @@ public class FB {
         } else {
             ShareDialogMode = ShareDialog.Mode.AUTOMATIC;
         }
+    }
+
+    @UnityCallable
+    public static void SetAutoLogAppEventsEnabled(String autoLogAppEventsEnabled) {
+        Log.v(TAG, "SetAutoLogAppEventsEnabled(" + autoLogAppEventsEnabled + ")");
+        FacebookSdk.setAutoLogAppEventsEnabled(
+            Boolean.valueOf(autoLogAppEventsEnabled));
+    }
+
+    @UnityCallable
+    public static void SetAdvertiserIDCollectionEnabled(String advertiserIDCollectionEnabled) {
+        Log.v(TAG, "SetAdvertiserIDCollectionEnabled(" + advertiserIDCollectionEnabled + ")");
+        FacebookSdk.setAdvertiserIDCollectionEnabled(
+            Boolean.valueOf(advertiserIDCollectionEnabled));
     }
 
     @UnityCallable
