@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <UnityDllPath Condition=" '$(UnityDllPath)' == '' ">\Applications\Unity\Unity.app\Contents\Managed</UnityDllPath> 
+    <noWarn>0618</noWarn>
+    <UnityDllPath Condition=" '$(UnityDllPath)' == '' ">\Applications\Unity\Unity.app\Contents</UnityDllPath> 
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4F631992-8D32-4AB5-8073-4BDC8A79380B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Facebook.Unity.Editor</RootNamespace>
     <AssemblyName>Facebook.Unity.Editor</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <ReleaseVersion>
     </ReleaseVersion>
   </PropertyGroup>
@@ -35,10 +36,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="UnityEditor">
-      <HintPath>"${UnityDllPath}\UnityEditor.dll"</HintPath>
+      <HintPath>$(UnityDllPath)\Managed\UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>"${UnityDllPath}\UnityEngine.dll"</HintPath>
+      <HintPath>$(UnityDllPath)\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />

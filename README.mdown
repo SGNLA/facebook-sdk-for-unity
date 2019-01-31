@@ -45,7 +45,7 @@ Open the UnitySDK project in your version of Unity - this should upgrade the pro
 
 NOTE: if you have installed Unity at a non-standard path run the following:
 export UNITY_PATH="/Applications/<ex. Unity2017.4.2p2>/Unity.app/Contents/MacOS/Unity"
-export UNITY_DLL_PATH="\Applications\<ex. Unity2017.4.2p2>\Unity.app\Contents\Managed"
+export UNITY_DLL_PATH="\Applications\<ex. Unity2017.4.2p2>\Unity.app\Contents"
 
 LICENSE
 -------
