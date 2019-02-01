@@ -227,7 +227,7 @@ var FBUnityLib = {
 
     login: function(scope, callback_id) {
         var scopeString = Pointer_stringify(scope);
-        var scopeArray = JSON.parse(scopeString);
+        var scopeArray = scopeString.split(',');
 
         var callback_idString = Pointer_stringify(callback_id);
 
