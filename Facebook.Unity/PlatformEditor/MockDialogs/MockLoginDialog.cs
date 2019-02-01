@@ -41,7 +41,10 @@ namespace Facebook.Unity.Editor.Dialogs
         {
             GUILayout.BeginHorizontal();
             GUILayout.Label("User Access Token:");
-            this.accessToken = EditorGUILayout.TextField(this.accessToken, GUI.skin.textArea, GUILayout.MinWidth(400));
+            if (Event.current.type == EventType.KeyDown && Event.current.keyCode == KeyCode.V && (Event.current.control | Event.current.command)) {
+                this.accessToken = GUIUtility.systemCopyBuffer;
+            }
+            this.accessToken = GUILayout.TextField(this.accessToken, GUI.skin.textArea, GUILayout.MinWidth(400));
             GUILayout.EndHorizontal();
             GUILayout.Space(10);
             if (GUILayout.Button("Find Access Token"))

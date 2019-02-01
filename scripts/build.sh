@@ -134,7 +134,7 @@ if [ ! -d "$UNITY_ANDROID_PLUGIN" ]; then
 fi
 cp $ANDROID_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy Android DLL"
 cp $IOS_STRIPPING_HACK_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy ios hack DLL"
-cp $CANVAS_STRIPPING_HACK_DLL $UNITY_IOS_PLUGIN || die "Failed to copy canvas hack DLL"
+cp $CANVAS_STRIPPING_HACK_DLL $UNITY_ANDROID_PLUGIN || die "Failed to copy canvas hack DLL"
 
 if [ ! -d "$UNITY_GAMEROOM_PLUGIN" ]; then
   mkdir -p $UNITY_GAMEROOM_PLUGIN || die "Failed to create Gameroom plugins folder"
