@@ -17,47 +17,21 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 
-. $(dirname $0)/common.sh
+# shellcheck disable=SC2039
 
-cd $(dirname $0)/..
+. "$(dirname "$0")/common.sh"
+
+cd "$(dirname "$0")/.." || die "$(dirname "$0")/.. not found"
 PROJECT_ROOT=$(pwd)
-PROPS_PATH="$PROJECT_ROOT/scripts/build.properties"
-source $PROPS_PATH
+. "$PROJECT_ROOT/scripts/build.properties"
 
 rm -rf tempIosBuild
 mkdir tempIosBuild
-cd tempIosBuild
+cd tempIosBuild || die "Directory tempIosBuild not found"
 
 UNITY_PLUGIN_FACEBOOK="$UNITY_PACKAGE_ROOT/Assets/FacebookSDK/Plugins/iOS"
 mkdir -p "$UNITY_PLUGIN_FACEBOOK"
 rm -rf "$UNITY_PLUGIN_FACEBOOK/*.framework"
 
-if [[ $* == *--local* ]]; then
-    info "Local build selected"
-    if [ -z "$FB_IOS_SDK_PATH" ]; then
-        die "Please set the FB_IOS_SDK_PATH variable in $LOCAL_PROPS"
-    fi
-    sdkFolder="$FB_IOS_SDK_PATH"
-else
-    if [ -z "$FB_IOS_SDK_VERSION" ]; then
-      echo "${RED}Error: 'FB_IOS_SDK_VERSION' not defined in $PROPS_PATH ${NC}"
-      exit 1
-    fi
-
-    if [ -z "$FB_IOS_RESOURCE_NAME" ]; then
-      echo "${RED}Error: 'FB_IOS_RESOURCE_NAME' not defined in $PROPS_PATH ${NC}"
-      exit 1
-    fi
-    packageName="facebook-ios-sdk-$FB_IOS_SDK_VERSION"
-    curl -L "https://origincache.facebook.com/developers/resources/?id=$FB_IOS_RESOURCE_NAME" -o "$packageName.zip"
-
-    unzip -q "$packageName.zip" -d $packageName
-    sdkFolder="$PROJECT_ROOT/tempIosBuild/$packageName"
-fi
-
-for FRAMEWORK in FBSDKCoreKit.framework FBSDKLoginKit.framework FBSDKShareKit.framework Bolts.framework; do
-    cp -r -f "$sdkFolder/$FRAMEWORK" "$UNITY_PLUGIN_FACEBOOK" || die "failed to copy $FRAMEWORK, build the iOS SDK before running this script"
-done
-
-cd $PROJECT_ROOT
-rm -r -f tempIosBuild
+cd "$PROJECT_ROOT" || die "$PROJECT_ROOT not found"
+rm -rf tempIosBuild

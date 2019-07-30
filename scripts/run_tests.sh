@@ -20,19 +20,19 @@
 # This file performs the custom build logic to setup the Plugins
 # in the unity project
 
-. $(dirname $0)/common.sh
+. "$(dirname "$0")/common.sh"
 
 # Run build script to ensure that test DLL is built
-$SCRIPTS_DIR/build.sh || die "Build failed"
+"$SCRIPTS_DIR/build.sh" || die "Build failed"
 
-which mono &>/dev/null || die "mono command not found. Please install mono."
+command -v mono >/dev/null 2>&1 || die "mono command not found. Please install mono."
 
 NSUBSTITUTE_CONSOLE="$PROJECT_ROOT/packages/NSubstitute.2.0.3/lib"
-NUNIT_CONSOLE="/Library/Frameworks/Mono.framework/Versions/Current/lib/mono/4.5/nunit-console.exe"
+NUNIT_CONSOLE="$PROJECT_ROOT/packages/NUnit.ConsoleRunner.3.10.0/tools/nunit3-console.exe"
 TEST_DLL="$PROJECT_ROOT/Facebook.Unity.Tests/bin/Release/Facebook.Unity.Tests.dll"
 
-validate_any_file_exists $NSUBSTITUTE_CONSOLE "NSubstitute.dll" "Make sure NSubstitute is installed at /packages"
-validate_file_exists $NUNIT_CONSOLE "Make sure mono is installed at this path"
-validate_file_exists $TEST_DLL "Make sure that the Unity Project successfully built"
+validate_any_file_exists "$NSUBSTITUTE_CONSOLE" "NSubstitute.dll" "Make sure NSubstitute is installed at /packages"
+validate_file_exists "$NUNIT_CONSOLE" "Make sure mono is installed at this path"
+validate_file_exists "$TEST_DLL" "Make sure that the Unity Project successfully built"
 
-mono $NUNIT_CONSOLE $TEST_DLL --noshadow --nothread || die "Some tests failed"
+mono "$NUNIT_CONSOLE" "$TEST_DLL" --workers=0 || die "Some tests failed"

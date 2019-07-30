@@ -17,10 +17,12 @@
 # COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 # IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 
+# shellcheck disable=SC2039
+
 cd "$( dirname "${BASH_SOURCE[0]}" )/.."
 PROJECT_ROOT=$(pwd)
 
-SCRIPTS_DIR="$PROJECT_ROOT/scripts"
+export SCRIPTS_DIR="$PROJECT_ROOT/scripts"
 
 CORE_ROOT=$PROJECT_ROOT/Facebook.Unity
 
@@ -49,90 +51,38 @@ CYAN='\033[0;36m'
 
 # Extract the SDK version from FacebookSdkVersion.java
 SDK_VERSION_RAW=$(sed -n 's/.*"\(.*\)\";/\1/p' "$CORE_ROOT/FacebookSdkVersion.cs")
-SDK_VERSION_MAJOR=$(echo $SDK_VERSION_RAW | awk -F'.' '{print $1}')
+SDK_VERSION_MAJOR=$(echo "$SDK_VERSION_RAW" | awk -F'.' '{print $1}')
 SDK_VERSION_MAJOR=${SDK_VERSION_MAJOR:-0}
-SDK_VERSION_MINOR=$(echo $SDK_VERSION_RAW | awk -F'.' '{print $2}')
+SDK_VERSION_MINOR=$(echo "$SDK_VERSION_RAW" | awk -F'.' '{print $2}')
 SDK_VERSION_MINOR=${SDK_VERSION_MINOR:-0}
-SDK_VERSION_REVISION=$(echo $SDK_VERSION_RAW | awk -F'.' '{print $3}')
+SDK_VERSION_REVISION=$(echo "$SDK_VERSION_RAW" | awk -F'.' '{print $3}')
 SDK_VERSION_REVISION=${SDK_VERSION_REVISION:-0}
-SDK_VERSION=$SDK_VERSION_MAJOR.$SDK_VERSION_MINOR.$SDK_VERSION_REVISION
-SDK_VERSION_SHORT=$(echo $SDK_VERSION | sed 's/\.0$//')
+export SDK_VERSION=$SDK_VERSION_MAJOR.$SDK_VERSION_MINOR.$SDK_VERSION_REVISION
 
-OUT="$PROJECT_ROOT/out"
-MAVEN_BASE_URL='http://repository.sonatype.org/service/local/artifact/maven/redirect?r=central-proxy&g=%s&a=%s&p=%s&v=%s'
-FACEBOOK_BASE_URL='https://origincache.facebook.com/developers/resources/?id=%s-%s.zip'
 UNITY_JAR_RESOLVER_NAME='unity-jar-resolver'
 UNITY_JAR_RESOLVER_PACKAGE_NAME='play-services-resolver'
 UNITY_JAR_RESOLVER_BASE_URL="https://github.com/googlesamples/$UNITY_JAR_RESOLVER_NAME/archive/v"
 UNITY_JAR_RESOLVER_VERSION='1.2.95'
 UNITY_JAR_RESOLVER_ZIP_URL="$UNITY_JAR_RESOLVER_BASE_URL$UNITY_JAR_RESOLVER_VERSION.zip"
 
-FB_SDK_MODULES=(
-  'facebook-applinks'
-  'facebook-common'
-  'facebook-core'
-  'facebook-login'
-  'facebook-messenger'
-  'facebook-places'
-  'facebook-share'
-  'facebook-marketing'
-)
+export OUT="$PROJECT_ROOT/out"
 
-function die() {
+die() {
   echo ""
   echo "${RED}FATAL: $* ${NC}" >&2
   exit 1
 }
 
 # Echoes a progress message to stderr
-function progress_message() {
+progress_message() {
     echo "$@" >&2
 }
 
-function info() {
+info() {
   echo "${CYAN}$* ${NC}" >&2
 }
 
-function downloadFromMaven() {
-  GROUP_ID=$1
-  ARTIFACT_ID=$2
-  PACKAGING=$3
-  VERSION=$4
-  MAVEN_DOWNLOAD_URL=$(printf "$MAVEN_BASE_URL" "$GROUP_ID" "$ARTIFACT_ID" "$PACKAGING" "$VERSION")
-
-  OUTPUT_PATH=$5
-  curl -L "$MAVEN_DOWNLOAD_URL" -o "$OUTPUT_PATH" || die "Failed download $MAVEN_DOWNLOAD_URL"
-}
-
-function downloadFromFacebook() {
-  ARTIFACT_ID=$1
-  VERSION=$2
-  OUTPUT_PATH=$3
-
-  FACEBOOK_DOWNLOAD_URL=$(printf "$FACEBOOK_BASE_URL" "$ARTIFACT_ID" "$VERSION")
-  PACKAGE_ZIP="package-$ARTIFACT_ID-$VERSION.zip"
-  ARTIFACT_NAME=$(printf "%s-%s" "$ARTIFACT_ID" "$VERSION")
-  FACEBOOK_AAR="$ARTIFACT_NAME/%s/%s.aar"
-
-  if [ ! -f "$PACKAGE_ZIP" ]; then
-    pushd $PROJECT_ROOT > /dev/null
-    curl -L "$FACEBOOK_DOWNLOAD_URL" > $PACKAGE_ZIP
-  else
-    info "$PACKAGE_ZIP already exists. Skipping download"
-  fi
-
-  rm "${OUTPUT_PATH}facebook-"*
-  unzip $PACKAGE_ZIP || die "Failed to unzip $FACEBOOK_DOWNLOAD_URL"
-  for MODULE in "${FB_SDK_MODULES[@]}"
-    do
-      FACEBOOK_AAR_FILE=$(printf "$FACEBOOK_AAR" "$MODULE" "$MODULE")
-      cp $FACEBOOK_AAR_FILE "$OUTPUT_PATH" || die "Failed to move $FACEBOOK_AAR_FILE to $OUTPUT_PATH"
-    done
-  rm $PACKAGE_ZIP
-  rm -rf $ARTIFACT_NAME
-}
-
-function downloadUnityJarResolverFromGithub() {
+downloadUnityJarResolverFromGithub() {
   UNITY_JAR_RESOLVER_PACKAGE="$UNITY_JAR_RESOLVER_PACKAGE_NAME.unitypackage"
 
   pushd $PROJECT_ROOT > /dev/null
@@ -150,23 +100,23 @@ function downloadUnityJarResolverFromGithub() {
   $UNITY_PATH -quit -batchmode -logFile -projectPath="$PROJECT_ROOT/UnitySDK" \
    -importPackage "$UNITY_PACKAGE_PATH" || die "Failed to import $UNITY_PACKAGE_PATH"
   info "Cleaning up..."
-  rm $UNITY_PACKAGE_PATH
+  rm "$UNITY_PACKAGE_PATH"
   mv $PROJECT_ROOT/Examples $PROJECT_ROOT/UnitySDK/Assets/FacebookSDK/Examples
   popd > /dev/null
 }
 
-function validate_file_exists() {
+validate_file_exists() {
   if [ ! -f "$1" ]; then
     echo "${RED}FATAL: File not found $1 ${NC}" >&2
-    die $2
+    die "$2"
   fi
 }
 
-function validate_any_file_exists() {
+validate_any_file_exists() {
   FILE_COUNT=$(find "$1" -name "$2" | wc -l)
 
   if [[ $FILE_COUNT -eq 0 ]]; then
     echo "${RED}FATAL: File not found $2 ${NC}" >&2
-    die $3
+    die "$3"
   fi
 }

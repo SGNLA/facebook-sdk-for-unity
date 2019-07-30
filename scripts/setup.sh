@@ -20,15 +20,17 @@
 # This file performs the custom build logic to setup the Plugins
 # in the unity project
 
-. $(dirname $0)/common.sh
+# shellcheck disable=SC2039
 
-which nuget &>/dev/null || die "nuget command not found. Please install nuget."
+. "$(dirname "$0")/common.sh"
+
+command -v nuget >/dev/null 2>&1 || die "nuget command not found. Please install nuget."
 echo "checking packages..."
-nuget restore $PROJECT_ROOT
+nuget restore "$PROJECT_ROOT"
 echo "checking packages done."
 
-$SCRIPTS_DIR/setup_ios_unity_plugin.sh "$@" || die "Failed to setup the ios sdk plugin"
-$SCRIPTS_DIR/setup_android_unity_plugin.sh "$@" || die "Failed to build the android sdk plugin"
+"$SCRIPTS_DIR/setup_ios_unity_plugin.sh" "$@" || die "Failed to setup the ios sdk plugin"
+"$SCRIPTS_DIR/setup_android_unity_plugin.sh" "$@" || die "Failed to build the android sdk plugin"
 
-cd $SCRIPTS_DIR
+cd "$SCRIPTS_DIR" || die "$SCRIPTS_DIR not found"
 ./build.sh

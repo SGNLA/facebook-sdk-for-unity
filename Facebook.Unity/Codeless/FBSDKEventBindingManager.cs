@@ -18,13 +18,20 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-namespace Facebook.Unity.Tests.Editor
-{
-    using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
-    [EditorTest]
-    [TestFixture]
-    public class AppInvite : Facebook.Unity.Tests.Mobile.AppInvite
+namespace Facebook.Unity
+{
+    public class FBSDKEventBindingManager
     {
+        public List<FBSDKEventBinding> eventBindings {get; set;}
+        public FBSDKEventBindingManager(List<System.Object> listDict)
+        {
+            this.eventBindings = new List<FBSDKEventBinding>();
+            foreach (Dictionary<string, object> dict in listDict) {
+                this.eventBindings.Add( new FBSDKEventBinding(dict));
+            }
+        }
     }
 }
