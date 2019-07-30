@@ -97,8 +97,7 @@ downloadUnityJarResolverFromGithub() {
 
   UNITY_PACKAGE_PATH="$PROJECT_ROOT/$UNITY_JAR_RESOLVER_PACKAGE"
 
-  $UNITY_PATH -quit -batchmode -logFile -projectPath="$PROJECT_ROOT/UnitySDK" \
-   -importPackage "$UNITY_PACKAGE_PATH" || die "Failed to import $UNITY_PACKAGE_PATH"
+  $UNITY_PATH -quit -batchmode -logFile -projectPath="$PROJECT_ROOT/UnitySDK" -importPackage "$UNITY_PACKAGE_PATH" || die "Failed to import $UNITY_PACKAGE_PATH"
   info "Cleaning up..."
   rm "$UNITY_PACKAGE_PATH"
   mv $PROJECT_ROOT/Examples $PROJECT_ROOT/UnitySDK/Assets/FacebookSDK/Examples
