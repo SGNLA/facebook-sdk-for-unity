@@ -22,7 +22,6 @@ namespace Facebook.Unity.Editor.Dialogs
 {
     using System;
     using System.Collections.Generic;
-    using UnityEditor;
     using UnityEngine;
 
     internal class MockLoginDialog : EditorFacebookMockDialog
@@ -41,7 +40,7 @@ namespace Facebook.Unity.Editor.Dialogs
         {
             GUILayout.BeginHorizontal();
             GUILayout.Label("User Access Token:");
-            this.accessToken = EditorGUILayout.TextField(this.accessToken, GUI.skin.textArea, GUILayout.MinWidth(400));
+            this.accessToken = GUILayout.TextField(this.accessToken, GUI.skin.textArea, GUILayout.MinWidth(400));
             GUILayout.EndHorizontal();
             GUILayout.Space(10);
             if (GUILayout.Button("Find Access Token"))

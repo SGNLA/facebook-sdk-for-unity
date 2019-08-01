@@ -9,8 +9,6 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Facebook.Unity.Settings</RootNamespace>
     <AssemblyName>Facebook.Unity.Settings</AssemblyName>
-    <ReleaseVersion>
-    </ReleaseVersion>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

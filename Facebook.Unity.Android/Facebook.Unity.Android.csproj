@@ -9,9 +9,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Facebook.Unity.Android</RootNamespace>
     <AssemblyName>Facebook.Unity.Android</AssemblyName>
-    <ReleaseVersion>
-    </ReleaseVersion>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <ReleaseVersion></ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,6 +34,7 @@
     <Reference Include="System" />
     <Reference Include="UnityEngine">
       <HintPath>$(UnityDllPath)\Managed\UnityEngine.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

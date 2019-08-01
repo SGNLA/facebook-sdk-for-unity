@@ -9,8 +9,6 @@
     <RootNamespace>Facebook.Unity.IOS.StrippingHack</RootNamespace>
     <AssemblyName>Facebook.Unity.IOS</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <ReleaseVersion>
-    </ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

@@ -10,8 +10,6 @@
     <RootNamespace>Facebook.Unity</RootNamespace>
     <AssemblyName>Facebook.Unity</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <ReleaseVersion>
-    </ReleaseVersion>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
@@ -43,9 +41,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine.UI">
       <HintPath>$(UnityDllPath)\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>$(UnityDllPath)\Managed\UnityEditor.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
